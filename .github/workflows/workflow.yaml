@@ -30,8 +30,7 @@ jobs:
       - name: Run unit tests
         working-directory: joincommunity/
         run: |
-          ls -l
-          pytest tests/
+          pytest tests/unit/
       - name: Run security checks
         run: bandit -r joincommunity/ --exclude tests/
   build-and-deploy:
