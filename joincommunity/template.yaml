@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  joincommunity
+  Sample SAM Template for joincommunity
+
+Globals:
+  Function:
+    Timeout: 3
+    MemorySize: 128
+    Tracing: Active
+    LoggingConfig:
+      LogFormat: JSON
+  Api:
+    TracingEnabled: true
+Resources:
+  JoinCommunityTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey: 
+        Name: participantId
+        Type: String
+      TableName: JoinCommunityParticipants
+
+  PostParticipantFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: post/
+      Handler: main.lambda_handler
+      Runtime: python3.12
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref JoinCommunityTable
+      Events:
+        PostParticipant:
+          Type: Api
+          Properties:
+            Path: /participant
+            Method: post
+
+  GetParticipantFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: get/
+      Handler: main.lambda_handler
+      Runtime: python3.12
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref JoinCommunityTable
+      Events:
+        GetParticipant:
+          Type: Api
+          Properties:
+            Path: /participant/{participantId}
+            Method: get
+
+
+Outputs:
+  ApiUrl:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
