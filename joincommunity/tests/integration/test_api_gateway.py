@@ -41,9 +41,8 @@ class TestApiGateway:
         assert response.status_code == 201
 
 
-    def test_api_gateway(self, api_gateway_url):
-        """ Call the API Gateway endpoint and check the response """
+    def test_get_participant(self, api_gateway_url):
+        """ Call the API Gateway endpoint to get a participant """
         url = f"{api_gateway_url}/participant/1"
         response = requests.get(url)
-
         assert response.status_code == 200
