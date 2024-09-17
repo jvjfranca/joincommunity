@@ -56,13 +56,15 @@ jobs:
         id: sam-cache
         uses: actions/cache@v3
         with:
-          path: .aws-sam
+          path: joincommunity/.aws-sam
           key: ${{ runner.os }}-sam-${{ github.ref_name }}-${{ hashFiles('**/template.yml') }}
           restore-keys: |
             ${{ runner.os }}-sam-
       - name: Build with SAM
+        working-directory: joincommunity/
         run: sam build --use-container
       - name: Deploy with SAM
+        working-directory: joincommunity/
         run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
       - name: Run integration tests
         run: |
