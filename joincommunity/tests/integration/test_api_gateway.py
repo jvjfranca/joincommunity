@@ -38,12 +38,12 @@ class TestApiGateway:
             "email": "johndoe@joincommunity.com.br",
         }
         response = requests.post(url, json=data)
-        assert response.status_code == 200
+        assert response.status_code == 201
 
 
     def test_api_gateway(self, api_gateway_url):
         """ Call the API Gateway endpoint and check the response """
-        url = f"{api_gateway_url}/participantId/1"
+        url = f"{api_gateway_url}/participant/1"
         response = requests.get(url)
 
         assert response.status_code == 200
