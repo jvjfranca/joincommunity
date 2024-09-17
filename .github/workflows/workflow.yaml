@@ -36,6 +36,7 @@ jobs:
       - name: Run security checks
         run: bandit -r joincommunity/ --exclude tests/
   build-and-deploy:
+    needs: python-ci
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
