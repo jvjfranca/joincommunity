@@ -27,7 +27,7 @@ jobs:
         run: ruff check joincommunity/ --output-format=github .
       - name: Run unit tests
         run: |
-          echo ls -l
+          ls -l
           pytest tests/
       - name: Run security checks
         run: bandit -r joincommunity/ --exclude tests/
