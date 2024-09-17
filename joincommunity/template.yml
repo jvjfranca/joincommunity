@@ -7,11 +7,13 @@ Globals:
   Function:
     Timeout: 3
     MemorySize: 128
+    Runtime: python3.12
     Tracing: Active
     LoggingConfig:
       LogFormat: JSON
   Api:
     TracingEnabled: true
+
 Resources:
   JoinCommunityTable:
     Type: AWS::Serverless::SimpleTable
@@ -26,7 +28,6 @@ Resources:
     Properties:
       CodeUri: post/
       Handler: main.lambda_handler
-      Runtime: python3.12
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref JoinCommunityTable
@@ -42,7 +43,6 @@ Resources:
     Properties:
       CodeUri: get/
       Handler: main.lambda_handler
-      Runtime: python3.12
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref JoinCommunityTable
@@ -52,7 +52,6 @@ Resources:
           Properties:
             Path: /participant/{participantId}
             Method: get
-
 
 Outputs:
   ApiUrl:
