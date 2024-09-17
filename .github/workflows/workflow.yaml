@@ -26,6 +26,7 @@ jobs:
       - name: Lint with Ruff
         run: ruff check joincommunity/ --output-format=github .
       - name: Run unit tests
+        working-directory: joincommunity/
         run: |
           ls -l
           pytest tests/
