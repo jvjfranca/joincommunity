@@ -69,10 +69,6 @@ jobs:
   integration-tests:
     needs: build-and-deploy
     runs-on: ubuntu-latest
-    env:
-      AWS_DEFAULT_REGION: us-east-1
-      AWS_ACCESS_KEY_ID: AKIAIOSFODNN7EXAMPLE
-      AWS_SECRET_ACCESS_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -81,6 +77,12 @@ jobs:
         with:
           python-version: '3.12'
           cache: 'pip'
+      - name: Set up AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4.0.2
+        with:
+          role-session-name: GHA-Session
+          aws-region: us-east-1
+          role-to-assume: ${{ secrets.GHA_AWS_ROLE }}
       - name: Install Dependencies
         run: pip install pytest requests boto3 
       - name: Run integration tests
