@@ -69,6 +69,10 @@ jobs:
   integration-tests:
     needs: build-and-deploy
     runs-on: ubuntu-latest
+    env:
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_ACCESS_KEY_ID: AKIAIOSFODNN7EXAMPLE
+      AWS_SECRET_ACCESS_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

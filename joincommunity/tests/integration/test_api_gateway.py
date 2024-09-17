@@ -29,6 +29,18 @@ class TestApiGateway:
 
         return api_outputs[0]["OutputValue"]  # Extract url from stack outputs
 
+    def test_post_participant(self, api_gateway_url):
+        """ Call the API Gateway endpoint to post a participant """
+        url = f"{api_gateway_url}/participant"
+        data = {
+            "participantId": "1",
+            "name": "John Doe",
+            "email": "johndoe@joincommunity.com.br",
+        }
+        response = requests.post(url, json=data)
+        assert response.status_code == 200
+
+
     def test_api_gateway(self, api_gateway_url):
         """ Call the API Gateway endpoint and check the response """
         url = f"{api_gateway_url}/participantId/1"
